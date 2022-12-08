@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>紙芝居</title>
+
+    <style>
+        @charset "utf-8";
+
+        /*========= レイアウト ===============*/
+
+        section.fixed {
+            position: -webkit-sticky;
+            /*Safari*/
+            position: sticky;
+            top: 70px;
+            /*Header高さで止める*/
+            /*装飾のためのCSS*/
+            background: #fff;
+            padding: 100px 30px 170px 30px;
+            min-height: 100vh;
+        }
+
+        section.fixed:nth-of-type(2n) {
+            /*装飾のためのCSS*/
+            color: #fff;
+            text-align: center;
+            padding: 300px 30px;
+            min-height: auto;
+        }
+
+        section.fixed:last-of-type {
+            padding: 170px 30px 100px 30px;
+            /*最後のセクションだけ止まらないため、エリア内の情報が少ない時は、HEADER分の高さをpadding-topに追加して上部が見えるようにする*/
+        }
+
+        section.fixed:nth-of-type(2) {
+            background: url("whale.jpg") no-repeat center;
+            background-size: cover;
+        }
+
+        section.fixed:nth-of-type(4) {
+            background: url("whale.jpg") no-repeat center;
+            background-size: cover;
+        }
+
+
+        /*＝＝＝＝＝＝＝＝＝＝＝タブレット以下の見え方＝＝＝＝＝＝＝＝＝＝＝＝＝*/
+
+        @media screen and (max-width:768px) {
+
+            section.fixed,
+            section.fixed:last-of-type {
+                position: relative !important;
+                /*sticky解除*/
+                top: 0;
+                /*70px⇒0pxに戻す*/
+                min-height: auto;
+                padding: 30px;
+            }
+
+            section.fixed:first-of-type {
+                padding: 100px 30px 30px 30px;
+                /*最初の要素は上部にHeaderの高さ以上の余白をとる*/
+            }
+
+            section.fixed:nth-of-type(2n) {
+                padding: 100px 30px;
+            }
+        }
+
+
+        /*========= レイアウトのためのCSS ===============*/
+
+        h1 {
+            font-size: 1.2rem;
+        }
+
+        #container h2 {
+            font-size: 1.2rem;
+        }
+
+        #container p {
+            margin-top: 20px;
+        }
+
+        small {
+            background: #333;
+            color: #fff;
+            display: block;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #header {
+            position: fixed;
+            /*Header固定*/
+            top: 0;
+            height: 70px;
+            /*高さ指定*/
+            z-index: 2;
+            width: 100%;
+            /*装飾のためのCSS*/
+            background: #333;
+            color: #fff;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #container {
+            position: relative;
+            z-index: 1;
+            /*header とfooterを手前にするため数字を小さく*/
+        }
+
+        #footer {
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+
+
+
+
+    <script>
+        if (document.location.search.match(/type=embed/gi)) {
+            window.parent.postMessage("resize", "*");
+        }
+    </script>
+
+
+</head>
+
+<body translate="no">
+
+
+
+    <meta charset="utf-8">
+    <title>紙芝居</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <header id="header">
+        <h1>空とぶくじら</h1>
+    </header>
+
+    <main id="container">
+        <section class="fixed">
+            <h2>area1</h2>
+            <p>ストーリー１</p>
+            <!--/area1-->
+        </section>
+        <section class="fixed">
+            <h2>area2</h2>
+            <!--/area2-->
+        </section>
+        <section class="fixed">
+            <h2>area3</h2>
+            <p>ストーリー２</p>
+
+
+            <!--/area3-->
+        </section>
+        <section class="fixed">
+            <h2>area4</h2>
+            <!--/area4-->
+        </section>
+        <section class="fixed">
+            <h2>area5</h2>
+
+            <p>ストーリー３</p>
+            <!--/area5-->
+        </section>
+        <!--/main-->
+    </main>
+
+    <footer id="footer">
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <script id="rendered-js">
+        $(window).on('load resize', function () {
+            var windowWidth = window.innerWidth;
+            var elements = $('.fixed');
+            if (windowWidth >= 768) {
+                Stickyfill.add(elements);
+            } else {
+                Stickyfill.remove(elements);
+            }
+        });
+    </script>
+
+</body>
+
+</html>
